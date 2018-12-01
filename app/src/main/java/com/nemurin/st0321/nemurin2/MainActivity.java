@@ -21,11 +21,8 @@ import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity {
-     private static final int noInput = 0;
-    private static final int defNumber = 0;
-
+    /**Prefファイルのアクセスインスタンス*/
     SharedPreferences pref;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

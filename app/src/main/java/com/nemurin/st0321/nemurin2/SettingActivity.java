@@ -20,15 +20,28 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.IdentityHashMap;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
+
+    /** food計算の画面設定値*/
     TextView foodSetNm;
+
+    /** shower計算の画面設定値*/
     TextView showerSetNm;
+
+    /** hobby計算の画面設定値*/
     TextView hobbySetNm;
 
-    ImageButton foodNumberPicker;
-    ImageButton showerNumberPicker;
-    ImageButton hobbyNumberPicker;
-    Button save_button;
+    /**PrefファイルのfoodDb項目への保存値*/
+    String foodDb;
+
+    /**PrefファイルのshowerDb項目への保存値*/
+    String showerDb;
+
+    /**PrefファイルのhobbyDb項目への保存値*/
+    String hobbyDb;
+
+    /**Prefファイルのアクセスインスタンス*/
     SharedPreferences pref;
+
 
     //どの項目のNumberPickerが選択されたかのフラグ
     private static final String foodFlag = "foodFlag";
@@ -45,24 +58,23 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         showerSetNm= (TextView) findViewById(R.id.shower_set_num);
         hobbySetNm= (TextView) findViewById(R.id.hobby_set_num);
 
-
         // 保存データを読み込み、food、shower、hobby設定項目に設定
         pref = getSharedPreferences("pref_data", MODE_PRIVATE);
-        String foodDb = pref.getString("foodInput","40");
+        foodDb = pref.getString("foodInput",PrefTimeEnum.DEFTIME.getString());
         foodSetNm.setText(foodDb);
 
-        String showerDb = pref.getString("showerInput","40");
+        showerDb = pref.getString("showerInput",PrefTimeEnum.DEFTIME.getString());
         showerSetNm.setText(showerDb);
 
 
-        String hobbyDb = pref.getString("hobbyInput","40");
+        hobbyDb = pref.getString("hobbyInput",PrefTimeEnum.DEFTIME.getString());
         hobbySetNm.setText(hobbyDb);
 
 
         /*SAVEボタンがクリックされた場合の処理。
         *NumberPickerで設定した値を保存する。
         */
-        save_button = (Button)findViewById(R.id.save_button);
+        Button save_button = (Button)findViewById(R.id.save_button);
         save_button.setOnClickListener(new View.OnClickListener() {
 
             //保存ボタンが押されたら、データを保存する
@@ -82,9 +94,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         });
 
         //NumberPickerをボタンごとに出力する。
-        foodNumberPicker = (ImageButton)findViewById(R.id.food_num_pick);
-        showerNumberPicker = (ImageButton)findViewById(R.id.shower_num_pick);
-        hobbyNumberPicker = (ImageButton)findViewById(R.id.hobby_num_pick);
+        ImageButton foodNumberPicker = (ImageButton)findViewById(R.id.food_num_pick);
+        ImageButton showerNumberPicker = (ImageButton)findViewById(R.id.shower_num_pick);
+        ImageButton hobbyNumberPicker = (ImageButton)findViewById(R.id.hobby_num_pick);
 
         foodNumberPicker.setOnClickListener(this);
         showerNumberPicker.setOnClickListener(this);
@@ -121,26 +133,42 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         //NumberPickerの最大値、最小値、初期値を設定
         NumberPickLg.setMaxValue(120);
         NumberPickLg.setMinValue(0);
-        NumberPickLg.setValue(40);
 
-        NumberPicker.OnValueChangeListener fdChangedListener = new NumberPicker.OnValueChangeListener() {
-                @Override
-                public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                    switch(flag) {
-                        case foodFlag:
+        NumberPicker.OnValueChangeListener changedListener = null;
+
+        switch(flag) {
+            case foodFlag:
+                NumberPickLg.setValue(Integer.parseInt(foodDb));
+                changedListener = new NumberPicker.OnValueChangeListener() {
+                    @Override
+                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                         foodSetNm.setText("" + newVal);
-                        break;
-                        case showerFlag:
-                            showerSetNm.setText("" + newVal);
-                            break;
-                        case hobbyFlag:
-                            hobbySetNm.setText("" + newVal);
-                            break;
                     }
+                };
+                break;
 
-                }
-        };
-        NumberPickLg.setOnValueChangedListener(fdChangedListener);
+            case showerFlag:
+                NumberPickLg.setValue(Integer.parseInt(showerDb));
+                changedListener = new NumberPicker.OnValueChangeListener() {
+                    @Override
+                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                        showerSetNm.setText("" + newVal);
+                    }
+                };
+                break;
+
+            case hobbyFlag:
+                NumberPickLg.setValue(Integer.parseInt(hobbyDb));
+                changedListener = new NumberPicker.OnValueChangeListener() {
+                    @Override
+                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                        hobbySetNm.setText("" + newVal);
+                    }
+                };
+                break;
+
+        }
+        NumberPickLg.setOnValueChangedListener(changedListener);
         AlertDialog.Builder builder = new AlertDialog.Builder(this).setView(NumberPickLg);
         builder.setTitle("Change").setIcon(R.mipmap.dialog_info);
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
