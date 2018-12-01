@@ -1,6 +1,7 @@
 package com.nemurin.st0321.nemurin2;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
@@ -72,6 +73,11 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 editor.putString("showerInput", (String)showerSetNm.getText());
                 editor.putString("hobbyInput", (String)hobbySetNm.getText());
                 editor.apply();
+
+                //MainActivityに戻る
+                Intent intent = new Intent(SettingActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

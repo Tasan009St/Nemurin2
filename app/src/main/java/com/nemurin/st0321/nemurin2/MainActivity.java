@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,14 +21,7 @@ import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity {
-    private TextView textView3;
-    private TextView date;
-    private String showDate;
-    private Calendar calendar;
-    private static final int foodDef = 40;
-    private static final int showerDef = 40;
-    private static final int hobbyDef = 40;
-    private static final int noInput = 0;
+     private static final int noInput = 0;
     private static final int defNumber = 0;
 
     SharedPreferences pref;
@@ -55,14 +49,14 @@ public class MainActivity extends AppCompatActivity {
 
         // 保存データを読み込み、food、shower、hobby設定項目に設定
         pref = getSharedPreferences("pref_data", MODE_PRIVATE);
-        String foodDb = pref.getString("foodInput",PrefTimeEnum.defaultTime.getString());
+        String foodDb = pref.getString("foodInput",PrefTimeEnum.DEFTIME.getString());
         foodcalcFirst.setText(foodDb);
 
-        String showerDb = pref.getString("showerInput",PrefTimeEnum.defaultTime.getString());
+        String showerDb = pref.getString("showerInput",PrefTimeEnum.DEFTIME.getString());
         showercalcFirst.setText(showerDb);
 
 
-        String hobbyDb = pref.getString("hobbyInput",PrefTimeEnum.defaultTime.getString());
+        String hobbyDb = pref.getString("hobbyInput",PrefTimeEnum.DEFTIME.getString());
         hobbycalcFirst.setText(hobbyDb);
 
 
@@ -78,19 +72,17 @@ public class MainActivity extends AppCompatActivity {
         Calendar openTime = Calendar.getInstance();
         openTime.getTime();
 
+        //現在時刻からデフォルト値/または設定値のfoodDbを足し、FoodTimeを求める
+        openTime.add(Calendar.MINUTE, Integer.parseInt(foodDb));
+        String food = hhmmFormat.format(openTime.getTime());
+        foodtimeFirst.setText(food);
 
-
-        //現在時刻からデフォルト値のdinnerDefを足し、FoodTimeを求める
-        openTime.add(Calendar.MINUTE, Integer.parseInt(showerDb));
-        String dinner = hhmmFormat.format(openTime.getTime());
-        foodtimeFirst.setText(dinner);
-
-        //FoodTimeからデフォルト値のshowerDefを足し、ShowerTimeを求める
+        //FoodTimeからデフォルト値/または設定値のshowerDbを足し、ShowerTimeを求める
         openTime.add(Calendar.MINUTE, Integer.parseInt(showerDb));
         String shower = hhmmFormat.format(openTime.getTime());
         showertimeFirst.setText(shower);
 
-        //ShowerTimeからデフォルト値のhobbyDefを足し、HobbyTimeを求める
+        //ShowerTimeからデフォルト値/または設定値のhobbyDb)を足し、HobbyTimeを求める
         openTime.add(Calendar.MINUTE, Integer.parseInt(hobbyDb));
         String hobby = hhmmFormat.format(openTime.getTime());
         hobbytimeFirst.setText(hobby);
@@ -108,30 +100,24 @@ public class MainActivity extends AppCompatActivity {
                 EditText showercalc = (EditText) findViewById(R.id.shower_calc);
                 EditText hobbycalc = (EditText) findViewById(R.id.hobby_calc);
 
-                //ユーザー入力がない場合は、noInputが適用される。
-                //ユーザー入力値がある場合は、Food Shower Hobbyの所要時間に設定
-
-                int foodMin =defNumber;
-                int showerMin=defNumber;
-                int hobbyMin=defNumber;
-
+                //ユーザー入力がない場合は、noInputを設定値に適用。
                 if (StringUtils.isBlank(foodcalc.getText())) {
-                    foodcalc.setText(String.valueOf(noInput));
-                } else {
-                    foodMin = Integer.parseInt(foodcalc.getText().toString());
+                    foodcalc.setText(PrefTimeEnum.NOINPUT.getString());
                 }
 
                 if (StringUtils.isBlank(foodcalc.getText())) {
-                    showercalc.setText(String.valueOf(noInput));
-                } else {
-                    showerMin = Integer.parseInt(showercalc.getText().toString());
+                    showercalc.setText(PrefTimeEnum.NOINPUT.getString());
                 }
 
                 if (StringUtils.isBlank(foodcalc.getText())) {
-                    hobbycalc.setText(String.valueOf(noInput));
-                } else {
-                    hobbyMin = Integer.parseInt(hobbycalc.getText().toString());
+                    hobbycalc.setText(PrefTimeEnum.NOINPUT.getString());
                 }
+
+                //設定値を取得
+                int foodMin = Integer.parseInt(foodcalc.getText().toString());
+                int showerMin = Integer.parseInt(showercalc.getText().toString());
+                int hobbyMin = Integer.parseInt(hobbycalc.getText().toString());
+
 
                 //Formatの設定
                 DateFormat hhmmFormat = new SimpleDateFormat("HH:mm");
@@ -191,16 +177,11 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
         Intent intent = new Intent(MainActivity.this, SettingActivity.class);
         startActivity(intent);
+        finish();
         return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-
-    private String getData(String flag){
-
-        return null;
-    }
 }
 
