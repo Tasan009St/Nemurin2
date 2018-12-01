@@ -1,6 +1,7 @@
 package com.nemurin.st0321.nemurin2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     private static final int noInput = 0;
     private static final int defNumber = 0;
 
+    SharedPreferences pref;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         EditText foodcalcFirst = (EditText) findViewById(R.id.food_calc);
         EditText showercalcFirst = (EditText) findViewById(R.id.shower_calc);
         EditText hobbycalcFirst = (EditText) findViewById(R.id.hobby_calc);
+
         foodcalcFirst.setText(Integer.toString(foodDef));
         showercalcFirst.setText(Integer.toString(showerDef));
         hobbycalcFirst.setText(Integer.toString(hobbyDef));
@@ -173,6 +178,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private String getData(String flag){
+
+        return null;
     }
 }
 
