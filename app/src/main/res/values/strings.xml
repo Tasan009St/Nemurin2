@@ -90,6 +90,10 @@
     <string name="sleepat">SLEEP AT</string>
     <string name="food_until">まで</string>
     <string name="food_calc">25</string>
+    <string name="food_set_number">40</string>
+    <string name="shower_set_number">40</string>
+    <string name="hobby_set_number">40</string>
+    <string name="save_button_label">SAVE</string>
 
 
 </resources>
