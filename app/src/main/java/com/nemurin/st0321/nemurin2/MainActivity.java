@@ -52,9 +52,24 @@ public class MainActivity extends AppCompatActivity {
         EditText showercalcFirst = (EditText) findViewById(R.id.shower_calc);
         EditText hobbycalcFirst = (EditText) findViewById(R.id.hobby_calc);
 
-        foodcalcFirst.setText(Integer.toString(foodDef));
-        showercalcFirst.setText(Integer.toString(showerDef));
-        hobbycalcFirst.setText(Integer.toString(hobbyDef));
+
+        // 保存データを読み込み、food、shower、hobby設定項目に設定
+        pref = getSharedPreferences("pref_data", MODE_PRIVATE);
+        String foodDb = pref.getString("foodInput",PrefTimeEnum.defaultTime.getString());
+        foodcalcFirst.setText(foodDb);
+
+        String showerDb = pref.getString("showerInput",PrefTimeEnum.defaultTime.getString());
+        showercalcFirst.setText(showerDb);
+
+
+        String hobbyDb = pref.getString("hobbyInput",PrefTimeEnum.defaultTime.getString());
+        hobbycalcFirst.setText(hobbyDb);
+
+
+        //いったんコメントアウト
+        //foodcalcFirst.setText(Integer.toString(foodDef));
+        //showercalcFirst.setText(Integer.toString(showerDef));
+        //hobbycalcFirst.setText(Integer.toString(hobbyDef));
 
         //Formatの設定
         DateFormat hhmmFormat = new SimpleDateFormat("HH:mm");
@@ -63,18 +78,20 @@ public class MainActivity extends AppCompatActivity {
         Calendar openTime = Calendar.getInstance();
         openTime.getTime();
 
+
+
         //現在時刻からデフォルト値のdinnerDefを足し、FoodTimeを求める
-        openTime.add(Calendar.MINUTE, foodDef);
+        openTime.add(Calendar.MINUTE, Integer.parseInt(showerDb));
         String dinner = hhmmFormat.format(openTime.getTime());
         foodtimeFirst.setText(dinner);
 
         //FoodTimeからデフォルト値のshowerDefを足し、ShowerTimeを求める
-        openTime.add(Calendar.MINUTE, showerDef);
+        openTime.add(Calendar.MINUTE, Integer.parseInt(showerDb));
         String shower = hhmmFormat.format(openTime.getTime());
         showertimeFirst.setText(shower);
 
         //ShowerTimeからデフォルト値のhobbyDefを足し、HobbyTimeを求める
-        openTime.add(Calendar.MINUTE, hobbyDef);
+        openTime.add(Calendar.MINUTE, Integer.parseInt(hobbyDb));
         String hobby = hhmmFormat.format(openTime.getTime());
         hobbytimeFirst.setText(hobby);
 
