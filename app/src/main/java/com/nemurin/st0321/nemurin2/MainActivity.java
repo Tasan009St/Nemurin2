@@ -24,9 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int hobbyDef = 40;
     private static final int noInput = 0;
     private static final int defNumber = 0;
-    private static final int sNumber = 0;
-    private static final int tNumber = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
