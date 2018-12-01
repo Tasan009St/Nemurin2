@@ -1,7 +1,11 @@
 package com.nemurin.st0321.nemurin2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -145,7 +149,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
     //今後やること
-    /*設定ボタンを描画
+
+
+    //設定ボタンを描画
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -153,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    //設定ボタン押下後の遷移先を指定
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -160,12 +167,12 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+        Intent intent = new Intent(MainActivity.this, SettingActivity.class);
         startActivity(intent);
         return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }*/
+    }
 }
 
