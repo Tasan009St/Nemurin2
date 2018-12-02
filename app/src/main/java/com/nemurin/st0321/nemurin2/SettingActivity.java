@@ -136,6 +136,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
         NumberPicker.OnValueChangeListener changedListener = null;
 
+        //Food、Shower、Hobbyのどの設定項目が呼ばれたかを判断し、
+        //呼びだし元のTextViewに値を設定する。
         switch(flag) {
             case foodFlag:
                 NumberPickLg.setValue(Integer.parseInt(foodDb));
@@ -168,9 +170,11 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
         }
+
+        //ダイアログ上での数値変更を可能にする。
         NumberPickLg.setOnValueChangedListener(changedListener);
         AlertDialog.Builder builder = new AlertDialog.Builder(this).setView(NumberPickLg);
-        builder.setTitle("Change").setIcon(R.mipmap.dialog_info);
+        builder.setTitle("Setting");
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

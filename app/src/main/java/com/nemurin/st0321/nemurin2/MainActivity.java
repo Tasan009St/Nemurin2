@@ -28,9 +28,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
 
         Button button = findViewById(R.id.button);
         TextView foodtimeFirst = findViewById(R.id.food_time);
@@ -56,11 +53,6 @@ public class MainActivity extends AppCompatActivity {
         String hobbyDb = pref.getString("hobbyInput",PrefTimeEnum.DEFTIME.getString());
         hobbycalcFirst.setText(hobbyDb);
 
-
-        //いったんコメントアウト
-        //foodcalcFirst.setText(Integer.toString(foodDef));
-        //showercalcFirst.setText(Integer.toString(showerDef));
-        //hobbycalcFirst.setText(Integer.toString(hobbyDef));
 
         //Formatの設定
         DateFormat hhmmFormat = new SimpleDateFormat("HH:mm");
@@ -110,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                     hobbycalc.setText(PrefTimeEnum.NOINPUT.getString());
                 }
 
-                //設定値を取得
+                //入力設定値を取得。(ユーザー設定値がない場合はnoinputが取得される)
                 int foodMin = Integer.parseInt(foodcalc.getText().toString());
                 int showerMin = Integer.parseInt(showercalc.getText().toString());
                 int hobbyMin = Integer.parseInt(hobbycalc.getText().toString());
@@ -131,30 +123,28 @@ public class MainActivity extends AppCompatActivity {
                 nowtime.getTime();
 
 
-                //foodの計算
+                //表示する”まで”のfoodの計算
                 nowtime.add(Calendar.MINUTE, foodMin);
                 String dinner = hhmmFormat.format(nowtime.getTime());
                 foodtime.setText(dinner);
 
-                //showerの計算
+                //表示する”まで”のshowerの計算
                 nowtime.add(Calendar.MINUTE, showerMin);
                 String shower = hhmmFormat.format(nowtime.getTime());
                 showertime.setText(shower);
 
-                //hobbyの計算
+                //表示する”まで”のhobbyの計算
                 nowtime.add(Calendar.MINUTE, hobbyMin);
                 String hobby = hhmmFormat.format(nowtime.getTime());
                 hobbytime.setText(hobby);
 
-                //sleep timeの表示
+                //sleep timeに、hobbyの値を表示
                 sleeptime.setText(hobby);
             }
         });
 
 
     }
-    //今後やること
-
 
     //設定ボタンを描画
     @Override
