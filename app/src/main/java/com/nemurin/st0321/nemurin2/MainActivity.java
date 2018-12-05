@@ -123,17 +123,17 @@ public class MainActivity extends AppCompatActivity {
                 nowtime.getTime();
 
 
-                //表示する”まで”のfoodの計算
+                //表示する”～まで”のfoodの計算
                 nowtime.add(Calendar.MINUTE, foodMin);
                 String dinner = hhmmFormat.format(nowtime.getTime());
                 foodtime.setText(dinner);
 
-                //表示する”まで”のshowerの計算
+                //表示する”～まで”のshowerの計算
                 nowtime.add(Calendar.MINUTE, showerMin);
                 String shower = hhmmFormat.format(nowtime.getTime());
                 showertime.setText(shower);
 
-                //表示する”まで”のhobbyの計算
+                //表示する”～まで”のhobbyの計算
                 nowtime.add(Calendar.MINUTE, hobbyMin);
                 String hobby = hhmmFormat.format(nowtime.getTime());
                 hobbytime.setText(hobby);

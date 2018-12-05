@@ -93,7 +93,7 @@
     <string name="food_set_number">40</string>
     <string name="shower_set_number">40</string>
     <string name="hobby_set_number">40</string>
-    <string name="save_button_label">SAVE</string>
+    <string name="save_button" >Save</string>
 
 
 </resources>

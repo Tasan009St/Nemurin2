@@ -14,8 +14,8 @@ android {
         applicationId "com.nemruin.st0321.nemurin2"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 12
-        versionName "2.2"
+        versionCode 13
+        versionName "2.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
